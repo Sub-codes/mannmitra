@@ -8,7 +8,7 @@ import {
   } from "@clerk/nextjs";
 const Header = () => {
   return (
-    <div>
+    <div className="fixed top-0">
       <SignedOut>
         <SignInButton />
         <SignUpButton />
