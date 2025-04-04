@@ -30,7 +30,7 @@ const Header = () => {
           </SignedOut>
           <SignedIn>
             <div className="flex justify-between items-center gap-4">
-
+{/* Header */}
             <Link href={"/dashboard"} >
             <Button className="text-gray-600 hover:text-blue-600 items-center flex gap-2" variant={"outline"}>
               <LayoutDashboard size={18}/>
