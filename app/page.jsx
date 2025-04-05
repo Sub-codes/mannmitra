@@ -9,10 +9,7 @@ import Image from "next/image";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+
 } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -122,7 +119,7 @@ export default function Home() {
           <Button
           className={"bg-white text-blue-600 hover:text-blue-50 animate-bounce"}
           >
-            Start Free Trail
+            Start Free Trial
           </Button>
           </Link>
         </div>
