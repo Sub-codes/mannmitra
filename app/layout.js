@@ -1,12 +1,9 @@
 import { Inter } from "next/font/google";
+import { Toaster } from "sonner";
 
 import {
   ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
+
 } from "@clerk/nextjs";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -30,6 +27,7 @@ export default function RootLayout({ children }) {
               © {new Date().getFullYear()} Blue Onion. All rights reserved.
             </div>
           </footer>
+          <Toaster richColors position="top-right" />
         </body>
       </html>
     </ClerkProvider>
