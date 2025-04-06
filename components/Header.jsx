@@ -1,6 +1,6 @@
 import {
   SignInButton,
-  SignUpButton,
+
   SignedIn,
   SignedOut,
   UserButton,
@@ -9,7 +9,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { LayoutDashboard, PenBox } from "lucide-react";
-const Header = () => {
+import { checkUser } from "@/lib/checkUser";
+const Header = async() => {
+  await checkUser()
   return (
     <div className="fixed top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b">
       <nav className="flex items-center justify-between p-4 container max-w-full mx-auto">
