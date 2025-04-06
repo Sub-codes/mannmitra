@@ -1,12 +1,17 @@
+import { getUserAccounts } from "@/actions/dashboard"
 import CreateAccountDrawer from "@/components/create-account-drawer"
 import { Card, CardContent } from "@/components/ui/card"
 import { Plus } from "lucide-react"
+import AccountCard from "./_components/AccountCard"
 
-const Dashboard = () => {
+const Dashboard = async() => {
+  const accounts=await getUserAccounts();
+
+  
   return (
 
 <>
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 
 <CreateAccountDrawer>
   <Card className="hover:shadow-md transition-shadow cursor-pointer w-full h-40">
@@ -16,6 +21,12 @@ const Dashboard = () => {
     </CardContent>
   </Card>
 </CreateAccountDrawer>
+{accounts.success&&<>
+{accounts.data.map((account) => {
+  return <AccountCard key={account.id} account={account}/>
+}
+)}
+</>}
 </div>
 </>
   )

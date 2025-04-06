@@ -9,12 +9,14 @@ const serializeTransaction = (obj) => {
   if (obj.balance) {
     serialized.balance = obj.balance.toNumber();
   }
+  if (obj.amount) {
+    serialized.amount = obj.amount.toNumber();
+  }
   return serialized;
 };
 export async function createAccount(data) {
   // Data is name,balance,isDeafualt,type
 
-  
   try {
     const { userId } = await auth();
     if (!userId) throw new Error("Unauthorized");
@@ -56,9 +58,46 @@ export async function createAccount(data) {
     });
     const serialized = serializeTransaction(account);
 
-
-    return {success:true,data:serialized};
+    revalidatePath("/dashboard");
+    return { success: true, data: serialized };
   } catch (error) {
-    console.log(error.mesaage);
+    console.log(error.message);
+  }
+}
+export async function getUserAccounts() {
+  // Data is name,balance,isDeafualt,type
+console.log("Useer Ahhh");
+
+  try {
+    const { userId } = await auth();
+    if (!userId) throw new Error("Unauthorized");
+    const user = await db.user.findUnique({
+      where: {
+        clerkUserId: userId,
+      },
+    });
+    if (!user) throw new Error("User Not in DataBase");
+
+    const accounts = await db.account.findMany({
+      where: {
+        userId: user.id,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        _count: {
+          select: {
+            transactions: true,
+          },
+        },
+      },
+    });
+    console.log(accounts);
+    
+    const serialized=accounts.map((account)=>serializeTransaction(account))
+    return { success: true, data: serialized };
+  } catch (error) {
+    console.log(error.message);
   }
 }
