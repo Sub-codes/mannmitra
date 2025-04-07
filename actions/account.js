@@ -51,3 +51,41 @@ try {
     
 }
 }
+export async function getAccountWithTransaction(id){
+  
+try {
+    const { userId } = await auth();
+    if (!userId) throw new Error("Unauthorized");
+    const user = await db.user.findUnique({
+      where: {
+        clerkUserId: userId,
+      },
+    });
+    if (!user) throw new Error("User Not in DataBase");
+    const account=await db.account.findUnique({
+      where:{
+        userId:user.id,
+        id:id
+      },
+      include:{
+        transactions:{
+          orderBy:{date:"desc"}
+        },
+        _count:{
+          select:{transactions:true}
+        }
+      },
+
+    })
+      if(!account) return null
+      return {success:true,data:{...serializeTransaction(account),transactions:account.transactions.map(
+        serializeTransaction
+      
+      )}}
+    
+} catch (error) {
+    console.log(error.message);
+    return {success:false,error:error.message}
+    
+}
+}

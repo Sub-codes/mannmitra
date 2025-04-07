@@ -66,7 +66,7 @@ export async function createAccount(data) {
 }
 export async function getUserAccounts() {
   // Data is name,balance,isDeafualt,type
-console.log("Useer Ahhh");
+
 
   try {
     const { userId } = await auth();
