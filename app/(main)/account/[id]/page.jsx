@@ -11,8 +11,8 @@ const page =async({params}) => {
     if(!data){
        return <NotFound/>
     }
-    const {transaction,...account}=data.data
-    console.log(data);
+    const {transactions,...account}=data.data
+
     
     
   return (
@@ -33,7 +33,7 @@ const page =async({params}) => {
       </div>
         <Suspense fallback={<BarLoader className='mt-4' width={"100%"} color='#9333ea'/>}>
 
-        <TransactionTable transactions={transaction}/>
+        <TransactionTable transactions={transactions}/>
         </Suspense>
         </div>
 
