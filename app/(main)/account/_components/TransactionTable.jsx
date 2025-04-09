@@ -8,12 +8,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { format } from "date-fns";
 import { categoryColors } from "@/data/categories";
+import { Badge } from "@/components/ui/badge";
+import { Clock } from "lucide-react";
 
 const TransactionTable = ({ transactions }) => {
 
+  console.log(transactions);
   
   const filteredAndSortedTransactions=transactions;
   const handleSort=()=>{
@@ -64,7 +74,18 @@ const TransactionTable = ({ transactions }) => {
                     {transaction.type==="EXPENSE"?"-":"+"}
                     {parseFloat(transaction.amount).toFixed(2)}</TableCell>
                   <TableCell className="text-right ">
-                    {transaction.recurring ? "Yes" : "No"}
+                    {transaction.recurring ? <TooltipProvider>
+  <Tooltip>
+    <TooltipTrigger>Hover</TooltipTrigger>
+    <TooltipContent>
+      <p>Add to library</p>
+    </TooltipContent>
+  </Tooltip>
+</TooltipProvider>
+ : <Badge variant={"outline"} className={"gap-1"}>
+  <Clock/>
+  One-Time
+  </Badge>}
                   </TableCell>
                   <TableCell className={"text-right"}>...</TableCell>
                 </TableRow>
