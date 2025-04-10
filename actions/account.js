@@ -104,13 +104,14 @@ export async function deleteTransactionBulk(ids) {
       },
     });
     const accBalance = transactions.reduce((acc, transaction) => {
-      const change =
-        transaction.type === "EXPENSE"
-          ? transaction.amount
-          : -transaction.amount;
-      acc[transaction.id] = (acc[transaction.id] || 0) + change;
+      const amount = Number(transaction.amount); // Make sure it's a number
+      const change = transaction.type === "EXPENSE" ? amount : -amount;
+      const accountId = transaction.accountId;
+    
+      acc[accountId] = (acc[accountId] || 0) + change;
       return acc;
     }, {});
+    
     await db.$transaction(async (tx) => {
       await tx.transaction.deleteMany({
         where: {
@@ -118,8 +119,10 @@ export async function deleteTransactionBulk(ids) {
           userId: user.id,
         },
       });
+      console.log("Nice");
+      
       for(const [accountId,balanceChange] of Object.entries(accBalance)){
-        await tx.update({
+        await tx.account.update({
           where:{
             id:accountId
           },
@@ -131,7 +134,8 @@ export async function deleteTransactionBulk(ids) {
         })
       }
     });
-    revalidatePath('/account/[id]')
+    revalidatePath('/account/[id]', 'page')
+
     revalidatePath('/dashboard')
     return {
       success: true,
