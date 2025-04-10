@@ -29,6 +29,8 @@ import { format } from "date-fns";
 import { categoryColors } from "@/data/categories";
 import { Badge } from "@/components/ui/badge";
 import {
+  ChevronDown,
+  ChevronUp,
   Clock,
   Edit,
   MoreHorizontal,
@@ -41,22 +43,45 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const TransactionTable = ({ transactions }) => {
-  console.log(transactions);
+
   const Recurring_Interval = {
     DAILY: "Daily",
     MONTHLY: "Monthly",
     YEARLY: "Yearly",
     WEEKLY: "Weekly",
   };
-  const [selectedIds, setSelectedIds] = useState([])
+  const [selectedIds, setSelectedIds] = useState([]);
   const [sortConfig, setSortConfig] = useState({
-    field:"date",
-    direction:"desc"
-  })
+    field: "date",
+    direction: "desc",
+  });
 
   const filteredAndSortedTransactions = transactions;
   const router = useRouter();
-  const handleSort = () => {};
+  const handleSelect = (id) => {
+    setSelectedIds((current) =>
+      current.includes(id)
+        ? current.filter((item) => item !== id)
+        : [...current, id]
+    );
+  };
+  const handleSelectMany = () => {
+    setSelectedIds((current) =>
+      current.length===filteredAndSortedTransactions.length
+        ? []
+        : filteredAndSortedTransactions.map(t=>t.id)
+    );
+  };
+  
+
+  
+  const handleSort = (field) => {
+    setSortConfig((current) => ({
+      field,
+      direction:
+        current.field == field && current.direction === "asc" ? "desc" : "asc",
+    }));
+  };
   return (
     <div className="space-y-4">
       <div className="rounded-md border">
@@ -64,31 +89,68 @@ const TransactionTable = ({ transactions }) => {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[50px] text-center">
-                <Checkbox />
+                <Checkbox onCheckedChange={handleSelectMany}
+                checked={filteredAndSortedTransactions.length===selectedIds.length&&filteredAndSortedTransactions.length!==0}
+                />
               </TableHead>
               <TableHead
                 onClick={() => handleSort("date")}
                 className="cursor-pointer"
               >
-                Date
+                <div className="flex items-center">
+                  <span>Date</span>
+                  <span>
+                    {sortConfig.field === "date" &&
+                      (sortConfig.direction === "asc" ? (
+                        <ChevronDown className="h-4 w-4 ml-1" />
+                      ) : (
+                        <ChevronUp className="h-4 w-4 ml-1" />
+                      ))}
+                  </span>
+                </div>
               </TableHead>
               <TableHead
-                onClick={() => handleSort("date")}
+                onClick={() => handleSort("description")}
                 className="cursor-pointer"
               >
-                Description
+                <div className="flex items-center">
+                  <span>Description</span>
+                  <span>
+                    {sortConfig.field === "description" &&
+                      (sortConfig.direction === "asc" ? (
+                        <ChevronDown className="h-4 w-4 ml-1" />
+                      ) : (
+                        <ChevronUp className="h-4 w-4 ml-1" />
+                      ))}
+                  </span>
+                </div>
               </TableHead>
               <TableHead
                 onClick={() => handleSort("category")}
                 className="cursor-pointer"
               >
-                Category
+                 <div className="flex items-center">
+                  <span>Category</span>
+                  <span>
+                    {sortConfig.field === "category" &&
+                      (sortConfig.direction === "asc" ? (
+                        <ChevronDown className="h-4 w-4 ml-1" />
+                      ) : (
+                        <ChevronUp className="h-4 w-4 ml-1" />
+                      ))}
+                  </span>
+                </div>
               </TableHead>
               <TableHead
                 onClick={() => handleSort("amount")}
-                className="text-right cursor-pointer"
+                className="text-right cursor-pointer flex justify-end items-center"
               >
-                Amount
+                Amount {sortConfig.field === "amount" &&
+                      (sortConfig.direction === "asc" ? (
+                        <ChevronDown className="h-4 w-4 ml-1" />
+                      ) : (
+                        <ChevronUp className="h-4 w-4 ml-1" />
+                      ))}
               </TableHead>
               <TableHead className="text-right">Recurring</TableHead>
               <TableHead> </TableHead>
@@ -108,7 +170,9 @@ const TransactionTable = ({ transactions }) => {
               filteredAndSortedTransactions.map((transaction) => (
                 <TableRow key={transaction.id}>
                   <TableCell className="text-center">
-                    <Checkbox />
+                    <Checkbox onCheckedChange={()=>handleSelect(transaction.id)}
+                    checked={selectedIds?.includes(transaction.id)}
+                    />
                   </TableCell>
                   <TableCell>
                     {format(new Date(transaction.date), "PP")}
@@ -193,8 +257,7 @@ const TransactionTable = ({ transactions }) => {
                           </div>
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem >
-                          
+                        <DropdownMenuItem>
                           <div className="flex items-center gap-2">
                             <Trash2 className="h-4 w-4 p-0 text-destructive" />
                             <span className="text-destructive">Delete</span>
