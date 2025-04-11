@@ -34,11 +34,11 @@ const page =async({params}) => {
       </div>
         <Suspense fallback={<BarLoader className='mt-4' width={"100%"} color='#9333ea'/>}>
 
-        <TransactionTable transactions={transactions}/>
+        <AccountChart transactions={transactions}/>
         </Suspense>
         <Suspense fallback={<BarLoader className='mt-4' width={"100%"} color='#9333ea'/>}>
 
-        <AccountChart transactions={transactions}/>
+        <TransactionTable transactions={transactions}/>
         </Suspense>
         </div>
 
