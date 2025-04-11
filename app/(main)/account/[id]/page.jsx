@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import React from 'react'
 import TransactionTable from '../_components/TransactionTable';
 import { BarLoader } from 'react-spinners';
+import AccountChart from '../_components/AccountChart';
 
 const page =async({params}) => {
     const {id}=await params;
@@ -34,6 +35,10 @@ const page =async({params}) => {
         <Suspense fallback={<BarLoader className='mt-4' width={"100%"} color='#9333ea'/>}>
 
         <TransactionTable transactions={transactions}/>
+        </Suspense>
+        <Suspense fallback={<BarLoader className='mt-4' width={"100%"} color='#9333ea'/>}>
+
+        <AccountChart transactions={transactions}/>
         </Suspense>
         </div>
 
