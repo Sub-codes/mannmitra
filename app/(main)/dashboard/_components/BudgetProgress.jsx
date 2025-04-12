@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const BudgetProgress = ({ initialBudget, currentExpenses }) => {
-  console.log(initialBudget);
+
 
   const [isEditing, setIsEditing] = useState(false);
   const [newBudget, setNewBudget] = useState(
@@ -27,14 +27,14 @@ const BudgetProgress = ({ initialBudget, currentExpenses }) => {
   const percentageUsed = initialBudget
     ? (currentExpenses / initialBudget.amount) * 100
     : 0;
-  // Assuming `useFetch` and `updateBudget` are defined elsewhere
+
   const {
     loading: isLoading,
     fn: updateBudgetFn,
     data: updatedBudget,
     error,
   } = useFetch(updateBudget);
-  // Assuming `toast` is a notification library (e.g., react-toastify)
+
 
   const handleUpdate = async () => {
     console.log(newBudget);
@@ -46,19 +46,17 @@ const BudgetProgress = ({ initialBudget, currentExpenses }) => {
     }
     await updateBudgetFn(amount);
   };
-let progressColor;
-if(percentageUsed>=90){
-    progressColor="bg-red-500"
-}
-else if(percentageUsed>=75){
-    progressColor="bg-yellow-500"
-}
-else{
-    progressColor="bg-green-500"
-}
+  let progressColor;
+  if (percentageUsed >= 90) {
+    progressColor = "bg-red-500";
+  } else if (percentageUsed >= 75) {
+    progressColor = "bg-yellow-500";
+  } else {
+    progressColor = "bg-green-500";
+  }
   useEffect(() => {
     if (updatedBudget?.success) {
-      // Assuming your `updateBudget` response has a `success` property
+
       setIsEditing(false);
       toast.success("Budget Updated Successfully");
     }
@@ -129,25 +127,15 @@ else{
           </div>
         </CardHeader>
         <CardContent>
+          {initialBudget && (
+            <div className="space-y-4 ">
+              <Progress value={percentageUsed} />
 
-            {initialBudget && (
-              <div className="space-y-4 ">
-                <Progress
-  value={percentageUsed}
-  extraStyles={`${
-    percentageUsed >= 90
-      ? "bg-red-500"
-      : percentageUsed >= 75
-        ? "bg-yellow-500"
-        : "bg-green-500"
-  }`}
-/>
-    
-
-                <p className="text-muted-foreground text-right">{percentageUsed.toFixed(2)}% used</p>
-              </div>
-            )}
-
+              <p className="text-muted-foreground text-right">
+                {percentageUsed.toFixed(2)}% used
+              </p>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

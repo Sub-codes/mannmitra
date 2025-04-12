@@ -39,9 +39,7 @@ export const getCurrentBudget = async (accountId) => {
             amount:true
         }
     })
-    console.log("Buget",budget);
-    console.log("Ex",expenses);
-    
+
     
     return {
         budget:budget?{...budget,amount:budget.amount.toNumber()}:null,
