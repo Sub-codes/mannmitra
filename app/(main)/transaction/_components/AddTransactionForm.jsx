@@ -5,7 +5,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import { createTransaction } from "@/actions/transaction";
+import { createTransaction, updateTransaction } from "@/actions/transaction";
 import { transactionSchema } from "@/app/lib/schema";
 import {
   Select,
@@ -19,20 +19,25 @@ import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useFetch } from "@/hooks/useFetch";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import CreateAccountDrawer from "@/components/create-account-drawer";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import ReciptScanner from "./ReciptScanner";
 
-const AddTransactionForm = ({ accounts, catogery }) => {
+const AddTransactionForm = ({ accounts, catogery,editMode=false,intialData=null }) => {
   const router = useRouter();
+  const params=useSearchParams()
+  const editId=params.get("edit")
+  const extractedRecurring = editMode && intialData?.isRecurring;
+
+  
   const {
     register,
     watch,
@@ -43,7 +48,18 @@ const AddTransactionForm = ({ accounts, catogery }) => {
     handleSubmit,
   } = useForm({
     resolver: zodResolver(transactionSchema),
-    defaultValues: {
+    defaultValues:
+    (editMode&&intialData)?{
+      accountId: intialData.accountId,
+      description: intialData.description,
+      category: intialData.category,
+      amount: intialData.amount.toString(),
+      type: intialData.type,
+      date: new Date(intialData.date),
+      isRecurring: extractedRecurring,
+      ...(extractedRecurring&&{
+        recurringInterval: intialData.recurringInterval,})
+    }: {
       accountId: accounts.find((acc) => acc.isDefault)?.id,
       description: "",
       category: "",
@@ -57,7 +73,7 @@ const AddTransactionForm = ({ accounts, catogery }) => {
     fn: transactionFn,
     loading: isCreating,
     data: res,
-  } = useFetch(createTransaction);
+  } = useFetch(editMode?updateTransaction:createTransaction);
   const type = watch("type");
   const isRecurring = watch("isRecurring");
   const date = watch("date");
@@ -67,16 +83,21 @@ const AddTransactionForm = ({ accounts, catogery }) => {
       ...data,
       amount: parseFloat(data.amount),
     };
+if(editMode){
 
-    await transactionFn(formData);
+  await transactionFn(editId,formData);
+}
+else{
+  await transactionFn(formData);
+}
   };
   useEffect(() => {
     if (res?.success && !isCreating) {
-      toast.success("Transaction Created Successfully");
+      toast.success(editMode?"Transaction Updated Successfully":"Transaction Created Successfully");
       reset();
       router.push(`/account/${res.transaction.accountId}`);
     }
-  }, [res, isCreating]);
+  }, [res, isCreating,editMode]);
   const handleScan = (scannedData) => {
     if(scannedData){
       setValue("amount", scannedData.amount.toString());
@@ -89,9 +110,9 @@ const AddTransactionForm = ({ accounts, catogery }) => {
   };
   return (
     <div className="">
-      <ReciptScanner onScanComplete={handleScan} className="" />
+{!editMode&&      <ReciptScanner onScanComplete={handleScan} className="" />}
       <form onSubmit={handleSubmit(onsubmit)} className="flex mt-5 flex-col gap-4">
-        {/* Ai Reciept */}
+
         <div className="">
           <label className="font-medium text-sm">
             Type
@@ -287,7 +308,8 @@ const AddTransactionForm = ({ accounts, catogery }) => {
             Cancel
           </Button>
           <Button type="submit" disabled={isCreating} className="flex-1">
-            Create Transaction
+            {isCreating ? <Loader className="animate-spin h-4 w-4 mr-2" />:<></>}
+           {editMode?"Update Transaction":'Create Transaction'}
           </Button>
         </div>
       </form>
