@@ -57,7 +57,7 @@ export async function createTransaction(data) {
     revalidatePath(`/account/${transaction.accountId}`);
     console.log("done");
     
-    return {succes:true,transaction:serializeTransaction(transaction)};
+    return {success:true,transaction:serializeTransaction(transaction)};
   } catch (error) {
     console.error("Error creating transaction:", error);
     throw new Error("Failed to create transaction");
