@@ -5,12 +5,12 @@ import { defaultCategories } from '@/data/categories';
 
 const CreateTransaction = async() => {
     const accounts=await getUserAccounts();
-    console.log(accounts);
+
 
   return (
     <div className='max-w-3xl mx-auto px-5'>
       <h1 className="text-5xl gradient-title">Add Transaction</h1>
-      <AddTransactionForm accounts={accounts}
+      <AddTransactionForm accounts={accounts.data}
       catogery={defaultCategories} />
     </div>
   )

@@ -14,6 +14,8 @@ const serializeTransaction = (obj) => {
   };
 
 export async function createTransaction(data) {
+  console.log(data);
+  
   try {
     const { userId } = await auth();
     if (!userId) throw new Error("Unauthorized");
@@ -38,7 +40,7 @@ export async function createTransaction(data) {
           data: {
             ...data,
          userId:user.id,
-         nextReccuringDate:data.isReccuring&&data.reccuringInterval?calculateNextDate(data.date,data.reccuringInterval):null
+         nextRecurringDate:data.isRecurring&&data.recurringInterval?calculateNextDate(data.date,data.recurringInterval):null
           },
         });
         await tx.account.update({
@@ -53,6 +55,8 @@ export async function createTransaction(data) {
     })
     revalidatePath("/transaction");
     revalidatePath(`/account/${transaction.accountId}`);
+    console.log("done");
+    
     return {succes:true,transaction:serializeTransaction(transaction)};
   } catch (error) {
     console.error("Error creating transaction:", error);
