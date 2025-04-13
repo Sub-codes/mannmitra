@@ -1,5 +1,7 @@
 "use server";
+import aj from "@/lib/arcjet";
 import { db } from "@/lib/prisma";
+import { request } from "@arcjet/next";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 const serializeTransaction = (obj) => {
@@ -14,7 +16,7 @@ const serializeTransaction = (obj) => {
   };
 
 export async function createTransaction(data) {
-  console.log(data);
+
   
   try {
     const { userId } = await auth();
@@ -26,6 +28,18 @@ export async function createTransaction(data) {
       },
     });
     if (!user) throw new Error("User Not in DataBase");
+    const req=await request();
+    const decision=await aj.protect(req,{
+      requested:1,
+      userId
+    })
+    if(decision.isDenied()){
+      if(decision.reason.isRateLimit()){
+        const {remaining,reset}= decision.reason
+        console.log("Rate Limit Exceeded",remaining,reset)
+        throw new Error("Rate Limit Exceeded")
+      }
+    }
     const account = await db.account.findUnique({
       where: {
         id: data.accountId,
@@ -55,12 +69,12 @@ export async function createTransaction(data) {
     })
     revalidatePath("/transaction");
     revalidatePath(`/account/${transaction.accountId}`);
-    console.log("done");
+
     
     return {success:true,transaction:serializeTransaction(transaction)};
   } catch (error) {
     console.error("Error creating transaction:", error);
-    throw new Error("Failed to create transaction");
+    throw new Error(error.message || "Failed to create transaction");
   }
 }
 function calculateNextDate(startDate, interval) {

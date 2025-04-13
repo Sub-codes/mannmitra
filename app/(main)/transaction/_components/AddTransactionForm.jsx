@@ -66,7 +66,7 @@ const AddTransactionForm = ({ accounts, catogery }) => {
       ...data,
       amount: parseFloat(data.amount),
     };
-    console.log(formData);
+
     
     await transactionFn(formData);
   };
@@ -82,7 +82,7 @@ const AddTransactionForm = ({ accounts, catogery }) => {
     <form
       onSubmit={handleSubmit(onsubmit)}
       className="flex flex-col gap-4"
-      // onSubmit={handleSubmit(transactionFn)}
+
     >
       {/* Ai Reciept */}
       <div className="">

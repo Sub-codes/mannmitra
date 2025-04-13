@@ -119,7 +119,7 @@ export async function deleteTransactionBulk(ids) {
           userId: user.id,
         },
       });
-      console.log("Nice");
+
       
       for(const [accountId,balanceChange] of Object.entries(accBalance)){
         await tx.account.update({

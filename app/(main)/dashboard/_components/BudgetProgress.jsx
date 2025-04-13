@@ -37,7 +37,7 @@ const BudgetProgress = ({ initialBudget, currentExpenses }) => {
 
 
   const handleUpdate = async () => {
-    console.log(newBudget);
+
 
     const amount = parseFloat(newBudget);
     if (isNaN(amount) || amount <= 0) {

@@ -13,7 +13,7 @@ let budgetData=null;
 if(defaultAccount){
   budgetData=await getCurrentBudget(defaultAccount.id)
 }
-console.log(budgetData);
+
 
   return (
     <div className="px-5 flex flex-col gap-8">

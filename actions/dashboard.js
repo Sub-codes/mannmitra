@@ -93,7 +93,7 @@ export async function getUserAccounts() {
         },
       },
     });
-    console.log(accounts);
+
     
     const serialized=accounts.map((account)=>serializeTransaction(account))
     return { success: true, data: serialized };
