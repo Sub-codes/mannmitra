@@ -75,6 +75,9 @@ const DashboardOverview = ({ transactions, accounts }) => {
           <CardTitle className={"text-base font-bold"}>
             Recent Transaction
           </CardTitle>
+          {accounts?.length > 0 && (
+
+          
           <Select
             value={selectedAccountId}
             onValueChange={setSelectedAccountId}
@@ -90,6 +93,7 @@ const DashboardOverview = ({ transactions, accounts }) => {
               ))}
             </SelectContent>
           </Select>
+          )}
         </CardHeader>
         <CardContent>
           <div className="space-y-4">

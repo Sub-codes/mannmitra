@@ -41,7 +41,7 @@ const AddTransactionForm = ({
   const params = useSearchParams();
   const editId = params.get("edit");
   const extractedRecurring = editMode && intialData?.isRecurring;
-  console.log(catogery);
+
 
   const {
     register,

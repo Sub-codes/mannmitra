@@ -21,7 +21,7 @@ const Header = async() => {
             height={100}
             width={400}
             alt="Logo"
-            className="h-20 w-auto bg-blend-color object-contain"
+            className="h-12 w-auto bg-blend-color object-contain"
           />
         </Link>
         <div className="">

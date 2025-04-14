@@ -23,7 +23,7 @@ const Dashboard = async () => {
         initialBudget={budgetData?.budget}
         currentExpenses={budgetData?.curreExpense || 0}
       />
-        {(accounts.scuess&&accounts?.data)&&(
+
           
           <Suspense
             fallback={
@@ -34,7 +34,7 @@ const Dashboard = async () => {
           accounts={accounts.data}
           transactions={transactions}/>
       </Suspense>
-        )}
+
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         <CreateAccountDrawer>
           <Card className="hover:shadow-md transition-shadow cursor-pointer w-full h-40">
