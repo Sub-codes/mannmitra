@@ -22,7 +22,7 @@ export default function Home() {
       <HeroSection />
       <section className="py-20 bg-blue-50">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {statsData.map((statData, index) => {
               return (
                 <div key={index} className="text-center">
@@ -41,7 +41,7 @@ export default function Home() {
           <h3 className="text-3xl text-center mb-12 font-bold">
             Everything You Need To Manage Your Finance
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuresData.map((feature, index) => {
               return (
                 <Card key={index} className={"p-6"}>
@@ -59,7 +59,7 @@ export default function Home() {
       <section className="py-20 bg-blue-50">
         <div className="container mx-auto px-4">
           <h3 className="text-3xl text-center mb-12 font-bold">How It Works</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {howItWorksData.map((step, index) => {
               return (
                 <div key={index} className="text-center">
