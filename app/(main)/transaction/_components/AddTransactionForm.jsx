@@ -20,7 +20,7 @@ import { Calendar } from "@/components/ui/calendar";
 
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+
 import { useFetch } from "@/hooks/useFetch";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -31,13 +31,18 @@ import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import ReciptScanner from "./ReciptScanner";
 
-const AddTransactionForm = ({ accounts, catogery,editMode=false,intialData=null }) => {
+const AddTransactionForm = ({
+  accounts,
+  catogery,
+  editMode = false,
+  intialData = null,
+}) => {
   const router = useRouter();
-  const params=useSearchParams()
-  const editId=params.get("edit")
+  const params = useSearchParams();
+  const editId = params.get("edit");
   const extractedRecurring = editMode && intialData?.isRecurring;
+  console.log(catogery);
 
-  
   const {
     register,
     watch,
@@ -49,31 +54,34 @@ const AddTransactionForm = ({ accounts, catogery,editMode=false,intialData=null 
   } = useForm({
     resolver: zodResolver(transactionSchema),
     defaultValues:
-    (editMode&&intialData)?{
-      accountId: intialData.accountId,
-      description: intialData.description,
-      category: intialData.category,
-      amount: intialData.amount.toString(),
-      type: intialData.type,
-      date: new Date(intialData.date),
-      isRecurring: extractedRecurring,
-      ...(extractedRecurring&&{
-        recurringInterval: intialData.recurringInterval,})
-    }: {
-      accountId: accounts.find((acc) => acc.isDefault)?.id,
-      description: "",
-      category: "",
-      amount: "",
-      type: "EXPENSE",
-      date: new Date(),
-      isRecurring: false,
-    },
+      editMode && intialData
+        ? {
+            accountId: intialData.accountId,
+            description: intialData.description,
+            category: intialData.category,
+            amount: intialData.amount.toString(),
+            type: intialData.type,
+            date: new Date(intialData.date),
+            isRecurring: extractedRecurring,
+            ...(extractedRecurring && {
+              recurringInterval: intialData.recurringInterval,
+            }),
+          }
+        : {
+            accountId: accounts.find((acc) => acc.isDefault)?.id,
+            description: "",
+            category: "",
+            amount: "",
+            type: "EXPENSE",
+            date: new Date(),
+            isRecurring: false,
+          },
   });
   const {
     fn: transactionFn,
     loading: isCreating,
     data: res,
-  } = useFetch(editMode?updateTransaction:createTransaction);
+  } = useFetch(editMode ? updateTransaction : createTransaction);
   const type = watch("type");
   const isRecurring = watch("isRecurring");
   const date = watch("date");
@@ -83,36 +91,39 @@ const AddTransactionForm = ({ accounts, catogery,editMode=false,intialData=null 
       ...data,
       amount: parseFloat(data.amount),
     };
-if(editMode){
-
-  await transactionFn(editId,formData);
-}
-else{
-  await transactionFn(formData);
-}
+    if (editMode) {
+      await transactionFn(editId, formData);
+    } else {
+      await transactionFn(formData);
+    }
   };
   useEffect(() => {
     if (res?.success && !isCreating) {
-      toast.success(editMode?"Transaction Updated Successfully":"Transaction Created Successfully");
+      toast.success(
+        editMode
+          ? "Transaction Updated Successfully"
+          : "Transaction Created Successfully"
+      );
       reset();
       router.push(`/account/${res.transaction.accountId}`);
     }
-  }, [res, isCreating,editMode]);
+  }, [res, isCreating, editMode]);
   const handleScan = (scannedData) => {
-    if(scannedData){
+    if (scannedData) {
       setValue("amount", scannedData.amount.toString());
-      setValue("date",new Date(scannedData.date));
-      if(scannedData.description){
+      setValue("date", new Date(scannedData.date));
+      if (scannedData.description) {
         setValue("description", scannedData.description);
       }
     }
-    
   };
   return (
     <div className="">
-{!editMode&&      <ReciptScanner onScanComplete={handleScan} className="" />}
-      <form onSubmit={handleSubmit(onsubmit)} className="flex mt-5 flex-col gap-4">
-
+      {!editMode && <ReciptScanner onScanComplete={handleScan} className="" />}
+      <form
+        onSubmit={handleSubmit(onsubmit)}
+        className="flex mt-5 flex-col gap-4"
+      >
         <div className="">
           <label className="font-medium text-sm">
             Type
@@ -166,12 +177,7 @@ else{
                     </SelectItem>
                   ))}
                   <CreateAccountDrawer>
-                    <Button
-                      variant={"ghost"}
-                      className="w-full text-left text-sm outline-none"
-                    >
-                      Create Account
-                    </Button>
+                    <span>Create Account</span>
                   </CreateAccountDrawer>
                 </SelectContent>
               </Select>
@@ -308,8 +314,12 @@ else{
             Cancel
           </Button>
           <Button type="submit" disabled={isCreating} className="flex-1">
-            {isCreating ? <Loader className="animate-spin h-4 w-4 mr-2" />:<></>}
-           {editMode?"Update Transaction":'Create Transaction'}
+            {isCreating ? (
+              <Loader className="animate-spin h-4 w-4 mr-2" />
+            ) : (
+              <></>
+            )}
+            {editMode ? "Update Transaction" : "Create Transaction"}
           </Button>
         </div>
       </form>

@@ -1,8 +1,8 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
@@ -11,8 +11,8 @@ const buttonVariants = cva(
       variant: {
         default:
           "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
-          finGenie: "bg-gradient-to-tr text-white from-blue-600 to-violet-600 hover:bg-gradient-to-tr hover:from-blue-700 hover:to-violet-700 cursor-pointer",
-
+        finGenie:
+          "bg-gradient-to-tr text-white from-blue-600 to-violet-600 hover:bg-gradient-to-tr hover:from-blue-700 hover:to-violet-700 cursor-pointer",
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
@@ -35,23 +35,18 @@ const buttonVariants = cva(
       size: "default",
     },
   }
-)
+);
 
-function Button({
-  className,
-  variant,
-  size,
-  asChild = false,
-  ...props
-}) {
-  const Comp = asChild ? Slot : "button"
+function Button({ className, variant, size, asChild = false, ...props }) {
+  const Comp = asChild ? Slot : "button";
 
   return (
     <Comp
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
-      {...props} />
+      {...props}
+    />
   );
 }
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };
