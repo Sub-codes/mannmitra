@@ -5,8 +5,7 @@ import { request } from "@arcjet/next";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import middleware from "@/middleware";
-import { incomingOpSchema } from "inngest/types";
+
 
 const ai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 

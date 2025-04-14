@@ -101,3 +101,28 @@ export async function getUserAccounts() {
     console.log(error.message);
   }
 }
+export async function getDashBoardData() {
+  try {
+    const { userId } = await auth();
+    if (!userId) throw new Error("Unauthorized");
+    const user = await db.user.findUnique({
+      where: {
+        clerkUserId: userId,
+      },
+    });
+    if (!user) throw new Error("User Not in DataBase");
+    const trasactions = await db.transaction.findMany({
+      where:{
+        userId:user.id
+      },
+      orderBy:{
+        date:"desc"
+      },
+    })
+    return trasactions.map((trasaction)=>serializeTransaction(trasaction))
+    
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+}

@@ -11,7 +11,7 @@ const buttonVariants = cva(
       variant: {
         default:
           "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
-          finGenie: "bg-gradient-to-tr from-blue-600 to-violet-600 hover:bg-gradient-to-tr hover:from-blue-700 hover:to-violet-700 cursor-pointer",
+          finGenie: "bg-gradient-to-tr text-white from-blue-600 to-violet-600 hover:bg-gradient-to-tr hover:from-blue-700 hover:to-violet-700 cursor-pointer",
 
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",

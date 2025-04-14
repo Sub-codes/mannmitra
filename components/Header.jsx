@@ -18,10 +18,10 @@ const Header = async() => {
         <Link href={"/"}>
           <Image
             src={"/logo.png"}
-            height={60}
-            width={200}
+            height={100}
+            width={400}
             alt="Logo"
-            className="h-12 w-auto object-contain"
+            className="h-20 w-auto bg-blend-color object-contain"
           />
         </Link>
         <div className="">
