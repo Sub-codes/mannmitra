@@ -1,3 +1,4 @@
+
 import { getUserAccounts } from "@/actions/dashboard";
 import React from "react";
 import AddTransactionForm from "../_components/AddTransactionForm";
@@ -6,7 +7,11 @@ import { getTransaction } from "@/actions/transaction";
 
 const CreateTransaction = async ({ searchParams }) => {
   const accounts = await getUserAccounts();
-  const editId = searchParams?.edit;
+  const slu=await searchParams
+
+
+const editId=slu.edit
+console.log(editId);
 
 if(editId){
   const transaction=await getTransaction(editId)

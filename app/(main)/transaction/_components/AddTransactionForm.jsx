@@ -177,7 +177,10 @@ const AddTransactionForm = ({
                     </SelectItem>
                   ))}
                   <CreateAccountDrawer>
-                    <span>Create Account</span>
+                   <Button variant={"ghost"} className="w-full">
+                      Create New Account
+
+                   </Button>
                   </CreateAccountDrawer>
                 </SelectContent>
               </Select>
@@ -194,7 +197,7 @@ const AddTransactionForm = ({
             Category
             <Select
               className=""
-              value={getValues("category")}
+              defaultValue={getValues("category")}
               onValueChange={(e) => setValue("category", e)}
             >
               <SelectTrigger className="w-full">
