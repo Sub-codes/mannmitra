@@ -29,8 +29,7 @@ const page =async({params}) => {
             <div className="text-xl sm:text-2xl font-bold">${parseFloat(account.balance).toFixed(2)}</div>
             <p className="text-sm text-muted-foreground">{account._count.transactions} Transactions</p>
         </div>
-        {/* Chart Section */}
-        {/* Table Section */}
+     
       </div>
         <Suspense fallback={<BarLoader className='mt-4' width={"100%"} color='#9333ea'/>}>
 

@@ -26,7 +26,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import CreateAccountDrawer from "@/components/create-account-drawer";
 import { format } from "date-fns";
-import { CalendarIcon, Loader } from "lucide-react";
+import { CalendarIcon, Loader, Plus } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import ReciptScanner from "./ReciptScanner";
@@ -178,6 +178,7 @@ const AddTransactionForm = ({
                   ))}
                   <CreateAccountDrawer>
                    <Button variant={"ghost"} className="w-full">
+                     <Plus className="mr-2 h-4 w-4" />
                       Create New Account
 
                    </Button>

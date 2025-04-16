@@ -2,7 +2,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -20,7 +19,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -45,7 +43,7 @@ import {
   RefreshCcw,
   SearchIcon,
   Trash2,
-  Trash2Icon,
+
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -54,7 +52,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { useFetch } from "@/hooks/useFetch";
 import { deleteTransactionBulk } from "@/actions/account";
-import { Toaster } from "@/components/ui/sonner";
+
 import { toast } from "sonner";
 import { BarLoader } from "react-spinners";
 
@@ -73,7 +71,11 @@ const TransactionTable = ({ transactions }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [reccuringFilter, setReccuringFilter] = useState("");
-  const{fn:deleteFn,loading:deleting,data:deleted}=useFetch(deleteTransactionBulk)
+  const {
+    fn: deleteFn,
+    loading: deleting,
+    data: deleted,
+  } = useFetch(deleteTransactionBulk);
   const filteredAndSortedTransactions = useMemo(() => {
     let res = transactions;
     if (searchTerm) {
@@ -106,14 +108,14 @@ const TransactionTable = ({ transactions }) => {
           break;
 
         case "category":
-          comp=a.category.localeCompare(b.category)
+          comp = a.category.localeCompare(b.category);
           break;
 
         default:
           comp = 0;
           break;
       }
-      return sortConfig.direction==="asc"?comp:-comp
+      return sortConfig.direction === "asc" ? comp : -comp;
     });
     return res;
   }, [transactions, sortConfig, searchTerm, typeFilter, reccuringFilter]);
@@ -146,24 +148,23 @@ const TransactionTable = ({ transactions }) => {
         current.field == field && current.direction === "asc" ? "desc" : "asc",
     }));
   };
-  const handleBulkDelete = async() => {
-    if(!window.confirm("Are you sure?")){
-return
+  const handleBulkDelete = async () => {
+    if (!window.confirm("Are you sure?")) {
+      return;
     }
-    deleteFn(selectedIds)
+    deleteFn(selectedIds);
   };
   useEffect(() => {
-   if(deleted&&!deleting){
-    setSelectedIds([])
-    toast.success("Transaction Deleted SuccesFully")
-   }
-  }, [deleted,deleting])
-  
+    if (deleted && !deleting) {
+      setSelectedIds([]);
+      toast.success("Transaction Deleted SuccesFully");
+    }
+  }, [deleted, deleting]);
+
   return (
     <div className="space-y-4 mb-20">
-      {deleting&&(
-
-      <BarLoader className="mt-4" width={"100%"} color="#9333ea" />
+      {deleting && (
+        <BarLoader className="mt-4" width={"100%"} color="#9333ea" />
       )}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
@@ -387,7 +388,9 @@ return
                           </div>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={()=>deleteFn([transaction.id])}>
+                        <DropdownMenuItem
+                          onClick={() => deleteFn([transaction.id])}
+                        >
                           <div className="flex items-center gap-2">
                             <Trash2 className="h-4 w-4 p-0 text-destructive" />
                             <span className="text-destructive">Delete</span>

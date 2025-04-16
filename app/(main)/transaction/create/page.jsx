@@ -11,7 +11,7 @@ const CreateTransaction = async ({ searchParams }) => {
 
 
 const editId=slu.edit
-console.log(editId);
+
 
 if(editId){
   const transaction=await getTransaction(editId)

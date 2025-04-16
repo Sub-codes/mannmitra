@@ -10,7 +10,7 @@ import {
   Legend,
 } from "recharts";
 import { format } from "date-fns";
-import { ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { ArrowUpRight, ArrowDownRight, Plus } from "lucide-react";
 
 import {
   Select,
@@ -21,6 +21,8 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import CreateAccountDrawer from "@/components/create-account-drawer";
+import { Button } from "@/components/ui/button";
 
 const DashboardOverview = ({ transactions, accounts }) => {
   const COLORS = [
@@ -76,23 +78,27 @@ const DashboardOverview = ({ transactions, accounts }) => {
             Recent Transaction
           </CardTitle>
           {accounts?.length > 0 && (
-
-          
-          <Select
-            value={selectedAccountId}
-            onValueChange={setSelectedAccountId}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select Account" />
-            </SelectTrigger>
-            <SelectContent>
-              {accounts?.map((account) => (
-                <SelectItem key={account.id} value={account.id}>
-                  {account.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            <Select
+              value={selectedAccountId}
+              onValueChange={setSelectedAccountId}
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select Account" />
+              </SelectTrigger>
+              <SelectContent>
+                {accounts?.map((account) => (
+                  <SelectItem key={account.id} value={account.id}>
+                    {account.name}
+                  </SelectItem>
+                ))}
+                <CreateAccountDrawer>
+                  <Button variant={"ghost"} className="w-full">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Create New Account
+                  </Button>
+                </CreateAccountDrawer>
+              </SelectContent>
+            </Select>
           )}
         </CardHeader>
         <CardContent>
@@ -159,9 +165,9 @@ const DashboardOverview = ({ transactions, accounts }) => {
                     cx="50%"
                     cy="50%"
                     outerRadius={80}
-                    label={({ name, value }) => `${name} $(${value.toFixed(
-                      2
-                    )})`}
+                    label={({ name, value }) =>
+                      `${name} $(${value.toFixed(2)})`
+                    }
                     // Removed the static fill here
                   >
                     {pieChartData.map((entry, index) => (
