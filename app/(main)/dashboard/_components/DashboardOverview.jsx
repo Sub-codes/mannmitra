@@ -91,8 +91,8 @@ const DashboardOverview = ({ transactions, accounts }) => {
                     {account.name}
                   </SelectItem>
                 ))}
-                <CreateAccountDrawer>
-                  <Button variant={"ghost"} className="w-full">
+                <CreateAccountDrawer >
+                  <Button variant={"ghost"} className="w-full text-left">
                     <Plus className="mr-2 h-4 w-4" />
                     Create New Account
                   </Button>
