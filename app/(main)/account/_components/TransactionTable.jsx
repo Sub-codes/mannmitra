@@ -36,6 +36,8 @@ import { categoryColors } from "@/data/categories";
 import { Badge } from "@/components/ui/badge";
 import {
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   ChevronUp,
   Clock,
   Edit,
@@ -160,25 +162,16 @@ const TransactionTable = ({ transactions }) => {
       toast.success("Transaction Deleted SuccesFully");
     }
   }, [deleted, deleting]);
-  
-  
-const paginatedTransaction=useMemo(() =>{
 
-  const totalPages = Math.ceil(
-    filteredAndSortedTransactions.length / 10
-  );
-  const startIndex = (currPage - 1) * 10;
-  const endIndex = startIndex + 10;
-  return  filteredAndSortedTransactions.slice(
-    startIndex,
-    endIndex
-  );
-
-}, [currPage, filteredAndSortedTransactions])
-const handlePageChange = (page) => {
-  setCurrPage(page);
-  
-}
+  const totalPages = Math.ceil(filteredAndSortedTransactions.length / 10);
+  const paginatedTransaction = useMemo(() => {
+    const startIndex = (currPage - 1) * 10;
+    const endIndex = startIndex + 10;
+    return filteredAndSortedTransactions.slice(startIndex, endIndex);
+  }, [currPage, filteredAndSortedTransactions]);
+  const handlePageChange = (page) => {
+    setCurrPage(page);
+  };
   return (
     <div className="space-y-4 mb-20">
       {deleting && (
@@ -305,7 +298,7 @@ const handlePageChange = (page) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredAndSortedTransactions?.length === 0 ? (
+            {paginatedTransaction?.length === 0 ? (
               <TableRow>
                 <TableCell
                   colSpan={6}
@@ -315,7 +308,7 @@ const handlePageChange = (page) => {
                 </TableCell>
               </TableRow>
             ) : (
-              filteredAndSortedTransactions.map((transaction) => (
+              paginatedTransaction.map((transaction) => (
                 <TableRow key={transaction.id}>
                   <TableCell className="text-center">
                     <Checkbox
@@ -423,6 +416,30 @@ const handlePageChange = (page) => {
           </TableBody>
         </Table>
       </div>
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-4 mt-4">
+          <Button
+            onClick={() => handlePageChange(currPage - 1)}
+            disabled={currPage === 1}
+            variant={"outline"}
+            size={"icon"}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <span className="text-sm text-muted-foreground">
+            Page {currPage} of {totalPages}
+          </span>
+          <Button
+            onClick={() => handlePageChange(currPage + 1)}
+            disabled={currPage === totalPages}
+            variant={"outline"}
+            size={"icon"}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
