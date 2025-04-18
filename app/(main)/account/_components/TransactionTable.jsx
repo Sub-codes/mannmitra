@@ -43,7 +43,6 @@ import {
   RefreshCcw,
   SearchIcon,
   Trash2,
-
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -57,6 +56,7 @@ import { toast } from "sonner";
 import { BarLoader } from "react-spinners";
 
 const TransactionTable = ({ transactions }) => {
+  const [currPage, setCurrPage] = useState(1);
   const Recurring_Interval = {
     DAILY: "Daily",
     MONTHLY: "Monthly",
@@ -160,7 +160,25 @@ const TransactionTable = ({ transactions }) => {
       toast.success("Transaction Deleted SuccesFully");
     }
   }, [deleted, deleting]);
+  
+  
+const paginatedTransaction=useMemo(() =>{
 
+  const totalPages = Math.ceil(
+    filteredAndSortedTransactions.length / 10
+  );
+  const startIndex = (currPage - 1) * 10;
+  const endIndex = startIndex + 10;
+  return  filteredAndSortedTransactions.slice(
+    startIndex,
+    endIndex
+  );
+
+}, [currPage, filteredAndSortedTransactions])
+const handlePageChange = (page) => {
+  setCurrPage(page);
+  
+}
   return (
     <div className="space-y-4 mb-20">
       {deleting && (
