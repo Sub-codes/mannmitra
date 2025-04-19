@@ -168,7 +168,7 @@ const TransactionTable = ({ transactions }) => {
     const startIndex = (currPage - 1) * 10;
     const endIndex = startIndex + 10;
     return filteredAndSortedTransactions.slice(startIndex, endIndex);
-  }, [currPage, filteredAndSortedTransactions]);
+  }, [currPage, filteredAndSortedTransactions,sortConfig, searchTerm, typeFilter, reccuringFilter]);
   const handlePageChange = (page) => {
     setCurrPage(page);
   };
@@ -319,7 +319,7 @@ const TransactionTable = ({ transactions }) => {
                   <TableCell>
                     {format(new Date(transaction.date), "PP")}
                   </TableCell>
-                  <TableCell>{transaction.description}</TableCell>
+                  <TableCell className={"truncate max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap"}>{transaction.description}</TableCell>
                   <TableCell className={"capitalize"}>
                     <span
                       style={{
