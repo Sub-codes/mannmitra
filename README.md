@@ -1,6 +1,6 @@
-# 💸 Finance Genie
+# 💸 mannmitra
 
-**Finance Genie** is a smart financial assistant built with **Next.js**, powered by **Gemini AI**, and backed by **Prisma ORM** on a **Vercel** deployment. It helps users manage money smarter with real-time expense tracking, AI-powered insights, and smooth server actions 🚀.
+**mannmitra** is a smart financial assistant built with **Next.js**, powered by **Gemini AI**, and backed by **Prisma ORM** on a **Vercel** deployment. It helps users manage money smarter with real-time expense tracking, AI-powered insights, and smooth server actions 🚀.
 
 ---
 
