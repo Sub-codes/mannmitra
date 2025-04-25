@@ -41,7 +41,9 @@ const HeroSection = () => {
           </Link>
           <Link href={"https://github.com/Blue-Onion/mannmitra"}>
             <Button className={"px-8"} variant={"outline"} size={"lg"}>
-              Learn
+   
+              View on GitHub
+              
             </Button>
           </Link>
         </div>
