@@ -11,8 +11,8 @@ import Header from "@/components/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "FinGenie: AI-Powered Financial Intelligence",
-  description: "One stop Finance Platform",
+  title: "MannMitra: Your Digital Companion for Mental Clarity",
+  description: "One stop mental health Platform",
 };
 
 export default function RootLayout({ children }) {
