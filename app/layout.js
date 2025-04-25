@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
           <main className="min-h-screen mt-40">{children}</main>
           <footer className="bg-blue-100 py-12">
             <div className="mx-auto container text-center px-4 text-gray-600">
-              © {new Date().getFullYear()} Blue Onion. All rights reserved.
+              © {new Date().getFullYear()} Boomer Cooker. All rights reserved.
             </div>
           </footer>
           <Toaster richColors position="top-right" />

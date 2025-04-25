@@ -20,26 +20,11 @@ export default function Home() {
 
 
       <HeroSection />
-      <section className="py-20 bg-blue-50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {statsData.map((statData, index) => {
-              return (
-                <div key={index} className="text-center">
-                  <div className="text-4xl text-blue-600 font-bold mb-2">
-                    {statData.value}
-                  </div>
-                  <div className="text-gray-600">{statData.label}</div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+  
       <section className="py-20">
         <div className="container mx-auto px-4">
           <h3 className="text-3xl text-center mb-12 font-bold">
-            Everything You Need To Manage Your Finance
+          Everything You Need For a Healthier Mind
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuresData.map((feature, index) => {
@@ -108,24 +93,24 @@ export default function Home() {
         </div>
       </section>
       <section className="py-20 bg-blue-600">
-        <div className="container mx-auto px-4 text-center">
-          <h3 className="text-3xl text-white mb-4 font-bold">
-            Ready To take Control of Your Finance ?
-          </h3>
-          <p className="text-blue-50 max-w-2xl mx-auto mb-8">
-            Take control of your money with FinGenie. Join 1000+ people already
-            budgeting smarter and saving better — your genie’s got your back.
-            💸🧞‍♀️
-          </p>
-          <Link href={"/dashboard"}>
-          <Button
-          className={"bg-white text-blue-600 hover:text-blue-50 animate-bounce"}
-          >
-            Start Now
-          </Button>
-          </Link>
-        </div>
-      </section>
+  <div className="container mx-auto px-4 text-center">
+    <h3 className="text-3xl text-white mb-4 font-bold">
+      Ready To Take Care of Your Mind with MannMitra?
+    </h3>
+    <p className="text-blue-50 max-w-2xl mx-auto mb-8">
+      Start your journey toward a calmer, more mindful you. Join 1000+ others
+      who’ve found comfort, clarity, and support with MannMitra. 💬🧘‍♀️💖
+    </p>
+    <Link href={"/chat-bot"}>
+      <Button
+        className={"bg-white text-blue-600 hover:text-blue-50 animate-bounce"}
+      >
+        Talk to Your AI Therapist
+      </Button>
+    </Link>
+  </div>
+</section>
+
     </div>
   );
 }

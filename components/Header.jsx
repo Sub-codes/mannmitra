@@ -9,9 +9,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { LayoutDashboard, PenBox } from "lucide-react";
-import { checkUser } from "@/lib/checkUser";
+// import { checkUser } from "@/lib/checkUser";
 const Header = async() => {
-  await checkUser()
+  // await checkUser()
   return (
     <div className="fixed top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b">
       <nav className="flex items-center justify-between p-4 container max-w-full mx-auto">
@@ -33,16 +33,16 @@ const Header = async() => {
           <SignedIn>
             <div className="flex justify-between items-center gap-4">
 {/* Header */}
-            <Link href={"/dashboard"} >
+            <Link href={"/book-appointment"} >
             <Button className="text-gray-600 hover:text-blue-600 items-center flex gap-2" variant={"outline"}>
               <LayoutDashboard size={18}/>
-              <span className="hidden md:inline">DashBoard</span>
+              <span className="hidden md:inline">Book an Appointment</span>
             </Button>
             </Link>
-            <Link href={"/transaction/create"} >
+            <Link href={"/chat-bot"} >
             <Button className=" items-center flex gap-2" >
               <PenBox size={18}/>
-              <span className="hidden md:inline">Add Transaction</span>
+              <span className="hidden md:inline">New Chat</span>
             </Button>
             </Link>
             <UserButton appearance={{

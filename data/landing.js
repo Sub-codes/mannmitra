@@ -8,104 +8,93 @@ import {
   } from "lucide-react";
   
   // Stats Data
-  export const statsData = [
-    {
-      value: "50K+",
-      label: "Active Users",
-    },
-    {
-      value: "$2B+",
-      label: "Transactions Tracked",
-    },
-    {
-      value: "99.9%",
-      label: "Uptime",
-    },
-    {
-      value: "4.9/5",
-      label: "User Rating",
-    },
-  ];
-  
+
   // Features Data
   export const featuresData = [
     {
       icon: <BarChart3 className="h-8 w-8 text-blue-600" />,
-      title: "Advanced Analytics",
+      title: "Mood Tracking",
       description:
-        "Get detailed insights into your spending patterns with AI-powered analytics",
+        "Keep a daily log of your emotions and visualize how you’re feeling over time.",
     },
     {
       icon: <Receipt className="h-8 w-8 text-blue-600" />,
-      title: "Smart Receipt Scanner",
+      title: "Emotion Journal",
       description:
-        "Extract data automatically from receipts using advanced AI technology",
+        "Write down your thoughts and feelings, and let the AI help you reflect.",
     },
     {
       icon: <PieChart className="h-8 w-8 text-blue-600" />,
-      title: "Budget Planning",
-      description: "Create and manage budgets with intelligent recommendations",
+      title: "Mindfulness Insights",
+      description:
+        "Receive calming prompts, breathing exercises, and personalized mental health tips.",
     },
     {
       icon: <CreditCard className="h-8 w-8 text-blue-600" />,
-      title: "Multi-Account Support",
-      description: "Manage multiple accounts and credit cards in one place",
+      title: "Private & Secure",
+      description:
+        "Your conversations and data are confidential and protected by top security standards.",
     },
     {
       icon: <Globe className="h-8 w-8 text-blue-600" />,
-      title: "Multi-Currency",
-      description: "Support for multiple currencies with real-time conversion",
+      title: "Global Access",
+      description:
+        "Talk to your AI therapist from anywhere, anytime — without judgment.",
     },
     {
       icon: <Zap className="h-8 w-8 text-blue-600" />,
-      title: "Automated Insights",
-      description: "Get automated financial insights and recommendations",
+      title: "Therapist Booking",
+      description:
+        "Need more support? Easily book an appointment with a certified therapist.",
     },
   ];
+  
   
   // How It Works Data
   export const howItWorksData = [
     {
       icon: <CreditCard className="h-8 w-8 text-blue-600" />,
-      title: "1. Create Your Account",
+      title: "1. Create Your Space",
       description:
-        "Get started in minutes with our simple and secure sign-up process",
+        "Sign up in seconds and start building your personal mental wellness journey.",
     },
     {
       icon: <BarChart3 className="h-8 w-8 text-blue-600" />,
-      title: "2. Track Your Spending",
+      title: "2. Start a Conversation",
       description:
-        "Automatically categorize and track your transactions in real-time",
+        "Share how you're feeling with your AI companion — it’s always here to listen.",
     },
     {
       icon: <PieChart className="h-8 w-8 text-blue-600" />,
-      title: "3. Get Insights",
+      title: "3. Get Support",
       description:
-        "Receive AI-powered insights and recommendations to optimize your finances",
+        "Receive mental health insights, calming techniques, and book a human therapist if needed.",
     },
   ];
+  
   
   // Testimonials Data
   export const testimonialsData = [
     {
-      name: "Sarah Johnson",
-      role: "Small Business Owner",
+      name: "Aarushi Sharma",
+      role: "College Student",
       image: "https://randomuser.me/api/portraits/women/75.jpg",
       quote:
-        "Welth has transformed how I manage my business finances. The AI insights have helped me identify cost-saving opportunities I never knew existed.",
+        "MindEase helped me get through my anxiety episodes. It felt like someone was truly listening, even at 3 AM.",
     },
     {
-      name: "Michael Chen",
-      role: "Freelancer",
+      name: "Ravi Kapoor",
+      role: "Software Engineer",
       image: "https://randomuser.me/api/portraits/men/75.jpg",
       quote:
-        "The receipt scanning feature saves me hours each month. Now I can focus on my work instead of manual data entry and expense tracking.",
+        "The emotion journaling feature is a lifesaver. I've learned so much about myself just by talking to the AI.",
     },
     {
-      name: "Emily Rodriguez",
-      role: "Financial Advisor",
+      name: "Meera Thomas",
+      role: "Freelancer",
       image: "https://randomuser.me/api/portraits/women/74.jpg",
       quote:
-        "I recommend Welth to all my clients. The multi-currency support and detailed analytics make it perfect for international investors.",
+        "I love how gentle and comforting the responses are. It truly feels like a safe space — and booking a therapist was super easy.",
     },
   ];
+  

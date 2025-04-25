@@ -25,23 +25,29 @@ const HeroSection = () => {
     <div className="pb-20 px-4">
       <div className="mx-auto container text-center">
         <h1 className="text-5xl md:text-8xl gradient-title lg:text-[105px] pb-6 font-bold">
-          Manage Your Finance <br /> With Intelligence
+        Heal Your Mind <br/>
+With Intelligence
+
+
         </h1>
         <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-          An intelligent finance assistant that helps you track spending, set
-          budgets, automate savings, and make smarter financial decisions.
+        An empathetic AI companion that listens, supports, and guides you through tough times. Chat freely, track your emotions, and book appointments with real mental health professionals — all in one place.
+
+
+
         </p>
         <div className="flex justify-center gap-4">
-          <Link href={"/dashboard"}>
+          <Link href={"/chat-bot"}>
             <Button className={"px-8"} size={"lg"}>
-              Get Started
+              Start Chatting
             </Button>
           </Link>
           <Link
             href={
-              "https://www.youtube.com/watch?v=T8mYfvUPKtA&list=RDGMEM916WJxafRUGgOvd6dVJkeQ&start_radio=1&rv=eMA6GHTQ4WA"
+              "/book-appointment"
             }
           >
+            
             <Button className={"px-8"} variant={"outline"} size={"lg"}>
               Learn More
             </Button>
