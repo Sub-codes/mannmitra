@@ -29,6 +29,16 @@ export default function RootLayout({ children }) {
           </footer>
           <Toaster richColors position="top-right" />
         </body>
+        
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+
+<df-messenger
+  intent="WELCOME"
+  chat-title="MannMitra"
+  agent-id="mannmitrabot-eqyt"
+  language-code="en"
+></df-messenger>
+
       </html>
     </ClerkProvider>
   );
